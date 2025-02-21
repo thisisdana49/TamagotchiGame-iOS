@@ -8,7 +8,7 @@
 import Foundation
 
 struct DialogueManager {
-    static func getRandomDialouge(captainName: String) -> String {
+    static func getRandomDialogue(captainName: String) -> String {
         let dialogues = [
             "좋은 하루예요, \(captainName)님!",
             "\(captainName)님, 배고파요!",

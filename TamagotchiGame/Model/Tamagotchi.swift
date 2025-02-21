@@ -8,9 +8,9 @@
 import Foundation
 
 struct Tamagotchi {
-    let id: Int
-    let foodCount: Int
-    let waterCount: Int
+    var id: Int
+    var foodCount: Int
+    var waterCount: Int
     
     var level: Int {
         return (foodCount / 5) + (waterCount / 2)
