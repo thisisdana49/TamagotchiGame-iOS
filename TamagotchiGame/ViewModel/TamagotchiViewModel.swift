@@ -64,6 +64,8 @@ final class TamagotchiViewModel: BaseViewModel {
         var tamagotchiLevel: Observable<Int> {
             return tamagotchi.map { $0.level }
         }
+        
+        // TODO: 상황에 따라 적절한 이야기를 설정하기
         var dialogue: Observable<String> {
             return tamagotchi.map { _ in
                 DialogueManager.getRandomDialogue(captainName: self.captain.value.name)
