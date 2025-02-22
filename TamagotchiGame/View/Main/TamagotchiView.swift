@@ -11,16 +11,16 @@ import SnapKit
 final class TamagotchiView: UIView {
     
     private let dialogueImageView = UIImageView()
-    private let dialogueLabel = UILabel()
+    let dialogueLabel = UILabel()
     private let tamagotchiImageView = UIImageView()
     private let badgeLabel = UILabel()
     private let statusLabel = UILabel()
     private let foodStackView = UIStackView()
-    private let foodTextField = UITextField()
-    private let foodButton = UIButton()
+    let foodTextField = UITextField()
     private let waterStackView = UIStackView()
-    private let waterTextField = UITextField()
-    private let waterButton = UIButton()
+    let foodButton = UIButton()
+    let waterTextField = UITextField()
+    let waterButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

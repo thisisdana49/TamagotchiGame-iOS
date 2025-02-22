@@ -12,8 +12,7 @@ import RxSwift
 final class TamagotchiViewController: BaseViewController {
     
     let viewModel = TamagotchiViewModel()
-    let mainView = TamagotchiView()
-    
+    private let mainView = TamagotchiView()
     
     override func loadView() {
         view = mainView
