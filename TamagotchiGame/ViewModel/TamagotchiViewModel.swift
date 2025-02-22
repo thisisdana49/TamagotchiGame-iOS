@@ -12,8 +12,10 @@ import RxSwift
 final class TamagotchiViewModel: BaseViewModel {
     
     struct Input {
-        let giveFood: BehaviorSubject<Int>
-        let giveWater: BehaviorSubject<Int>
+        let giveFood: ControlProperty<String>
+        let foodButtonTap: ControlEvent<Void>
+        let giveWater: ControlProperty<String>
+        let waterButtonTap: ControlEvent<Void>
     }
     
     struct Output {
@@ -21,8 +23,6 @@ final class TamagotchiViewModel: BaseViewModel {
         let tamagotchiLevel: Observable<Int>
         let dialogue: Observable<String>
     }
-    
-    private let disposBag = DisposeBag()
     
     private let tamagotchi: BehaviorRelay<Tamagotchi>
     private let captain: BehaviorRelay<Captain>
@@ -35,23 +35,31 @@ final class TamagotchiViewModel: BaseViewModel {
         self.captain = BehaviorRelay(value: captain)
     }
     
-    private func transform(input: Input) -> Output {
+    func transform(input: Input) -> Output {
         // TODO: 두 로직을 합칠 수 있을 것 같음
-        input.giveFood
+        input.foodButtonTap
+            .withLatestFrom(input.giveFood)
+            .map { Int($0) ?? 1 }
             .bind(with: self) { owner, value in
+                print("given food: ", value)
                 var newTamagotchi = owner.tamagotchi.value
-                newTamagotchi.foodCount += 1
+                newTamagotchi.foodCount += value
                 owner.tamagotchi.accept(newTamagotchi)
+                print("total food: ", newTamagotchi.foodCount)
             }
-            .disposed(by: disposBag)
+            .disposed(by: disposeBag)
 
-        input.giveWater
+        input.waterButtonTap
+            .withLatestFrom(input.giveWater)
+            .map { Int($0) ?? 1 }
             .bind(with: self) { owner, value in
+                print("given water: ", value)
                 var newTamagotchi = owner.tamagotchi.value
-                newTamagotchi.waterCount += 1
+                newTamagotchi.waterCount += value
                 owner.tamagotchi.accept(newTamagotchi)
+                print("total water: ", newTamagotchi.waterCount)
             }
-            .disposed(by: disposBag)
+            .disposed(by: disposeBag)
         
         var tamagotchiLevel: Observable<Int> {
             return tamagotchi.map { $0.level }

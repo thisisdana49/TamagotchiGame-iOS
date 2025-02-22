@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
-class TamagotchiViewController: UIViewController {
-
+final class TamagotchiViewController: BaseViewController {
+    
+    let viewModel = TamagotchiViewModel()
     let mainView = TamagotchiView()
+    
     
     override func loadView() {
         view = mainView
@@ -17,19 +21,20 @@ class TamagotchiViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func bindViewModel() {
+        let input = TamagotchiViewModel.Input(giveFood: mainView.foodTextField.rx.text.orEmpty,
+                                              foodButtonTap: mainView.foodButton.rx.tap,
+                                              giveWater: mainView.waterTextField.rx.text.orEmpty,
+                                              waterButtonTap: mainView.waterButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        output.dialogue
+            .bind(with: self) { owner, value in
+                owner.mainView.dialogueLabel.rx.text.onNext(value)
+            }
+            .disposed(by: disposeBag)
     }
-    */
-
+    
 }

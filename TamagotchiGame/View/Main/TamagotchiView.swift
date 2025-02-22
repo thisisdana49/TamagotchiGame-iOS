@@ -102,6 +102,7 @@ final class TamagotchiView: UIView {
         
         dialogueLabel.text = "안녕하세요, 대장님!"
         dialogueLabel.textAlignment = .center
+        dialogueLabel.numberOfLines = 0
         
         badgeLabel.text = "방실방실 다마고치"
         
