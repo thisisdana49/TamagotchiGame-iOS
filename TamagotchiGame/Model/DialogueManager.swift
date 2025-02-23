@@ -8,13 +8,16 @@
 import Foundation
 
 struct DialogueManager {
-    static func getRandomDialogue(captainName: String) -> String {
+//    static func getRandomDialogue(captainName: String) -> String {
+    static func getRandomDialogue() -> String {
         let dialogues = [
-            "좋은 하루예요, \(captainName)님!",
-            "\(captainName)님, 배고파요!",
-            "밥과 물을 잘먹었더니 레벨업 했어요 고마워요, \(captainName)님!"
+            "좋은 하루예요!",
+            "배고파요!",
+            "보고싶었다구요~",
+            "깃허브 푸시 까먹으시면 안돼요~",
+            "얼른 취직해서 맛있는거 사주세용!!"
         ]
         
-        return dialogues.randomElement() ?? "\(captainName)님, 보고싶었어요~"
+        return dialogues.randomElement() ?? "보고싶었다구요~"
     }
 }

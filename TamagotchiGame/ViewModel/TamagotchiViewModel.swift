@@ -19,7 +19,6 @@ final class TamagotchiViewModel: BaseViewModel {
     }
     
     struct Output {
-        // TODO: Driver? Observable? 무슨 타입을 써야 적합한가...🤨
         let tamagotchiImage: Observable<String>
         let tamagotchiStatus: Observable<String>
         let dialogue: Observable<String>
@@ -27,7 +26,7 @@ final class TamagotchiViewModel: BaseViewModel {
     
     private let tamagotchi: BehaviorRelay<Tamagotchi>
     private let captain: BehaviorRelay<Captain>
-    private let dialogueSubject = BehaviorRelay<String>(value: "반갑구만 반가워요~!")
+    private let dialogueSubject: BehaviorRelay<String>
     
     init(tamagotchi: Tamagotchi) {
         var initialTamagotchi = tamagotchi
@@ -38,6 +37,7 @@ final class TamagotchiViewModel: BaseViewModel {
         
         self.tamagotchi = BehaviorRelay(value: initialTamagotchi)
         self.captain = BehaviorRelay(value: captain)
+        self.dialogueSubject = BehaviorRelay(value: DialogueManager.getRandomDialogue())
     }
     
     func transform(input: Input) -> Output {
@@ -48,9 +48,12 @@ final class TamagotchiViewModel: BaseViewModel {
         }
         
         let tamagotchiStatus = tamagotchi.map { $0.status }
-        let dialogue = dialogueSubject.asObservable()
         
-        // TODO: 두 로직을 합칠 수 있을 것 같음
+        let dialogue = Observable
+            .combineLatest(dialogueSubject, captain) { dialogue, captain in
+                return "\(captain.name)님~ \(dialogue)"
+            }
+        
         input.foodButtonTap
             .withLatestFrom(input.giveFood)
             .map { Int($0) ?? 1 }
