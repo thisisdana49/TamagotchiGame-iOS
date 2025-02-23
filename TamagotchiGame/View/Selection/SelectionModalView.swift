@@ -20,12 +20,19 @@ final class SelectionModalView: UIView {
     let cancelButton = UIButton()
     let startButton = UIButton()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(tamagotchi: Tamagotchi) {
+        super.init(frame: .zero)
         
         configureHierarchy()
         configureLayout()
         configureView()
+        configure(with: tamagotchi)
+    }
+    
+    private func configure(with tamagotchi: Tamagotchi) {
+        tamagotchiImageView.image = UIImage(named: "\(tamagotchi.id)-6")
+        badgeLabel.text = tamagotchi.type
+        descLabel.text = tamagotchi.desc
     }
     
     private func configureHierarchy() {
@@ -84,13 +91,11 @@ final class SelectionModalView: UIView {
         
         tamagotchiImageView.image = ._1_1
         
-        badgeLabel.text = "방실방실 다마고치"
         badgeLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         badgeLabel.textColor = .point
         
         separatorView.backgroundColor = .point
         
-        descLabel.text = "저는 방실방실 다마고치 매일 웃고 있어요"
         descLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         descLabel.textColor = .point
         descLabel.textAlignment = .center

@@ -11,11 +11,11 @@ import RxSwift
 
 final class TamagotchiViewController: BaseViewController {
     
-    let viewModel = TamagotchiViewModel()
+    let viewModel: TamagotchiViewModel
     private let mainView = TamagotchiView()
     
     init(tamagotchi: Tamagotchi) {
-//        self.viewModel = TamagotchiViewModel(tamagotchi: tamagotchi)
+        self.viewModel = TamagotchiViewModel(tamagotchi: tamagotchi)
         super.init(nibName: nil, bundle: nil)
     }
     

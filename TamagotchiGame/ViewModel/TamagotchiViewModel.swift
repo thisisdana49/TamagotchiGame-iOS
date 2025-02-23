@@ -27,9 +27,9 @@ final class TamagotchiViewModel: BaseViewModel {
     private let tamagotchi: BehaviorRelay<Tamagotchi>
     private let captain: BehaviorRelay<Captain>
     
-    override init() {
+    init(tamagotchi: Tamagotchi) {
         // TODO: UserDefaults에서 저장된 정보를 가져올 수 있도록 하기!!
-        let tamagotchi = Tamagotchi(id: 1, foodCount: 0, waterCount: 0)
+        print("Main view model init", tamagotchi)
         let captain = Captain(name: "대장")
         self.tamagotchi = BehaviorRelay(value: tamagotchi)
         self.captain = BehaviorRelay(value: captain)

@@ -9,11 +9,12 @@ import UIKit
 
 final class SelectionModalViewController: BaseViewController {
 
-    private let mainView = SelectionModalView()
     private let viewModel: SelectionModalViewModel
+    private let mainView: SelectionModalView
     
     init(tamagotchi: Tamagotchi) {
         self.viewModel = SelectionModalViewModel(tamagotchi: tamagotchi)
+        self.mainView = SelectionModalView(tamagotchi: tamagotchi)
         super.init(nibName: nil, bundle: nil)
     }
     
