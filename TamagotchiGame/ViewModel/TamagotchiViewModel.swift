@@ -20,7 +20,8 @@ final class TamagotchiViewModel: BaseViewModel {
     
     struct Output {
         // TODO: Driver? Observable? 무슨 타입을 써야 적합한가...🤨
-        let tamagotchiLevel: Observable<Int>
+        let tamagotchiImage: Observable<String>
+        let tamagotchiStatus: Observable<String>
         let dialogue: Observable<String>
     }
     
@@ -41,11 +42,11 @@ final class TamagotchiViewModel: BaseViewModel {
             .withLatestFrom(input.giveFood)
             .map { Int($0) ?? 1 }
             .bind(with: self) { owner, value in
-                print("given food: ", value)
+//                print("given food: ", value)
                 var newTamagotchi = owner.tamagotchi.value
                 newTamagotchi.foodCount += value
                 owner.tamagotchi.accept(newTamagotchi)
-                print("total food: ", newTamagotchi.foodCount)
+//                print("total food: ", newTamagotchi.foodCount)
             }
             .disposed(by: disposeBag)
 
@@ -53,16 +54,21 @@ final class TamagotchiViewModel: BaseViewModel {
             .withLatestFrom(input.giveWater)
             .map { Int($0) ?? 1 }
             .bind(with: self) { owner, value in
-                print("given water: ", value)
                 var newTamagotchi = owner.tamagotchi.value
                 newTamagotchi.waterCount += value
                 owner.tamagotchi.accept(newTamagotchi)
-                print("total water: ", newTamagotchi.waterCount)
+//                print("total water: ", newTamagotchi.waterCount)
             }
             .disposed(by: disposeBag)
         
-        var tamagotchiLevel: Observable<Int> {
-            return tamagotchi.map { $0.level }
+        let tamagotchiImage = tamagotchi.map { value in
+            // TODO: 멋이 없어서 리팩토링 때에 수정 필요
+            let level = value.level == 0 ? 1 : (value.level == 10 ? 9 : value.level)
+            return "\(value.id)-\(level)"
+        }
+        
+        var tamagotchiStatus: Observable<String> {
+            return tamagotchi.map { $0.status }
         }
         
         // TODO: 상황에 따라 적절한 이야기를 설정하기
@@ -72,7 +78,8 @@ final class TamagotchiViewModel: BaseViewModel {
             }
         }
         
-        return Output(tamagotchiLevel: tamagotchiLevel,
+        return Output(tamagotchiImage: tamagotchiImage,
+                      tamagotchiStatus: tamagotchiStatus,
                       dialogue: dialogue)
     }
     

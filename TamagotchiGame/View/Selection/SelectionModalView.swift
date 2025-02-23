@@ -32,7 +32,7 @@ final class SelectionModalView: UIView {
     
     private func configure(with tamagotchi: Tamagotchi) {
         tamagotchiImageView.image = UIImage(named: "\(tamagotchi.id)-6")
-        badgeLabel.text = tamagotchi.type
+        badgeLabel.text = tamagotchi.badge
         descLabel.text = tamagotchi.desc
     }
     

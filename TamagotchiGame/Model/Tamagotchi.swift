@@ -13,9 +13,17 @@ struct Tamagotchi {
     var waterCount: Int
     
     var level: Int {
-        return (foodCount / 5) + (waterCount / 2)
+        let foodRatio = Double(foodCount / 5)
+        let waterRatio = Double(waterCount / 2)
+        let levelValue = Int(floor(foodRatio + waterRatio) * 0.1)
+        return min(levelValue, 10)
     }
-    var type: String {
+    
+    var status: String {
+        return "LV \(level) · 밥알 \(foodCount)개 · 물방울 \(waterCount)개"
+    }
+    
+    var badge: String {
         switch self.id {
         case 1:
             return "따끔따끔 다마고치"

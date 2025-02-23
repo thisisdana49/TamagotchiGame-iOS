@@ -12,9 +12,9 @@ final class TamagotchiView: UIView {
     
     private let dialogueImageView = UIImageView()
     let dialogueLabel = UILabel()
-    private let tamagotchiImageView = UIImageView()
+    let tamagotchiImageView = UIImageView()
     private let badgeLabel = UILabel()
-    private let statusLabel = UILabel()
+    let statusLabel = UILabel()
     private let foodStackView = UIStackView()
     let foodTextField = UITextField()
     private let waterStackView = UIStackView()
@@ -33,7 +33,7 @@ final class TamagotchiView: UIView {
     
     private func configure(with tamagotchi: Tamagotchi) {
         tamagotchiImageView.image = UIImage(named: "\(tamagotchi.id)-1")
-        badgeLabel.text = tamagotchi.type
+        badgeLabel.text = tamagotchi.badge
     }
     
     private func configureHierarchy() {

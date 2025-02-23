@@ -39,6 +39,21 @@ final class TamagotchiViewController: BaseViewController {
                                               waterButtonTap: mainView.waterButton.rx.tap)
         let output = viewModel.transform(input: input)
         
+        output.tamagotchiImage
+            .bind(with: self) { owner, value in
+                print(value)
+                owner.mainView.tamagotchiImageView.image = UIImage(named: value)
+            }
+            .disposed(by: disposeBag)
+        
+        output.tamagotchiStatus
+            .bind(with: self) { owner, value in
+                owner.mainView.statusLabel.rx.text.onNext(value)
+                owner.mainView.waterTextField.rx.text.onNext("")
+                owner.mainView.foodTextField.rx.text.onNext("")
+            }
+            .disposed(by: disposeBag)
+        
         output.dialogue
             .bind(with: self) { owner, value in
                 owner.mainView.dialogueLabel.rx.text.onNext(value)
