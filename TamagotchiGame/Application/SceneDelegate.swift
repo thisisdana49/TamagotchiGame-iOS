@@ -15,8 +15,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        
-        let nav = UINavigationController(rootViewController: SelectionTypeViewController())
+
+        let rootViewController: UIViewController
+        if UserDataManager.selectedTamagotchi == 0 {
+            rootViewController = SelectionTypeViewController()
+        } else {
+            let selectedTamagotchi = Tamagotchi(id: UserDataManager.selectedTamagotchi,
+                                                foodCount: UserDataManager.foodCount,
+                                                waterCount: UserDataManager.waterCount)
+            let tamagotchiVC = TamagotchiViewController(tamagotchi: selectedTamagotchi)
+            rootViewController = tamagotchiVC
+        }
+
+        let nav = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
     }

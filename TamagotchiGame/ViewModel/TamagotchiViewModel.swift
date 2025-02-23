@@ -30,10 +30,13 @@ final class TamagotchiViewModel: BaseViewModel {
     private let dialogueSubject = BehaviorRelay<String>(value: "반갑구만 반가워요~!")
     
     init(tamagotchi: Tamagotchi) {
-        // TODO: UserDefaults에서 저장된 정보를 가져올 수 있도록 하기!!
-        print("Main view model init", tamagotchi)
-        let captain = Captain(name: "대장")
-        self.tamagotchi = BehaviorRelay(value: tamagotchi)
+        var initialTamagotchi = tamagotchi
+        initialTamagotchi.foodCount = UserDataManager.foodCount
+        initialTamagotchi.waterCount = UserDataManager.waterCount
+        
+        let captain = Captain(name: UserDataManager.captainName)
+        
+        self.tamagotchi = BehaviorRelay(value: initialTamagotchi)
         self.captain = BehaviorRelay(value: captain)
     }
     
@@ -59,6 +62,7 @@ final class TamagotchiViewModel: BaseViewModel {
                 
                 var newTamagotchi = owner.tamagotchi.value
                 newTamagotchi.foodCount += value
+                UserDataManager.foodCount = newTamagotchi.foodCount
                 owner.tamagotchi.accept(newTamagotchi)
                 owner.dialogueSubject.accept("냠냠~ JMT네요~ 😋")
             }
@@ -75,6 +79,7 @@ final class TamagotchiViewModel: BaseViewModel {
                 
                 var newTamagotchi = owner.tamagotchi.value
                 newTamagotchi.waterCount += value
+                UserDataManager.waterCount = newTamagotchi.waterCount
                 owner.tamagotchi.accept(newTamagotchi)
                 owner.dialogueSubject.accept("꿀꺽~ 수분 충전 완료!! 😚")
             }

@@ -30,7 +30,8 @@ final class SelectionModalViewModel: BaseViewModel {
         input.startButtonTap
             .map { self.tamagotchi }
             .bind(with: self, onNext: { owner, value in
-                print("start button tapped", value)
+                UserDataManager.selectedTamagotchi = owner.tamagotchi.id
+                print("selectedTamagotchi saved", owner.tamagotchi.id)
                 owner.startGameRelay.accept(value)
             })
             .disposed(by: disposeBag)
