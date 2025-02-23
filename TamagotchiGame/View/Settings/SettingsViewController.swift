@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import SnapKit
 
-class SettingsViewController: BaseViewController {
+final class SettingsViewController: BaseViewController {
 
     let viewModel = SettingsViewModel()
     let tableView = UITableView()
@@ -50,15 +50,32 @@ class SettingsViewController: BaseViewController {
             let vc = SelectionTypeViewController()
             navigationController?.pushViewController(vc, animated: true)
         case .resetData:
-            // TODO: Alert 필요
-            viewModel.resetData()
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }
-            let vc = SelectionTypeViewController(isOnboarding: true)
-                    
-            let nav = UINavigationController(rootViewController: vc)
-            window.rootViewController = nav
-            window.makeKeyAndVisible()
+            showResetAlert()
         }
+    }
+    
+    private func showResetAlert() {
+        let confirmAction = UIAlertAction(title: "웅", style: .destructive) { [weak self] _ in
+            self?.resetData()
+        }
+        
+        AlertManager.shared.showAlert(
+            on: self,
+            title: "리셋할까요?",
+            message: "모든 데이터가 초기화되니 다시 한 번 생각을...",
+            actions: [UIAlertAction(title: "취소!", style: .cancel), confirmAction]
+        )
+    }
+    
+    private func resetData() {
+        viewModel.resetData()
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }
+        let vc = SelectionTypeViewController(isOnboarding: true)
+                
+        let nav = UINavigationController(rootViewController: vc)
+        window.rootViewController = nav
+        window.makeKeyAndVisible()
     }
     
     override func setupUI() {

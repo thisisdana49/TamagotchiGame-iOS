@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SelectionTypeCollectionViewCell: UICollectionViewCell {
+final class SelectionTypeCollectionViewCell: UICollectionViewCell {
     
     static let id = "SelectionTypeCollectionViewCell"
     
