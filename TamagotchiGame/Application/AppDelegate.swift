@@ -13,8 +13,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        configureGlobalNavigationBarAppearance()
         return true
+    }
+    
+    private func configureGlobalNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        let backButtonAppearance = UIBarButtonItemAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .base
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.point]
+        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.point]
+        appearance.backButtonAppearance = backButtonAppearance
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().tintColor = .point
     }
 
     // MARK: UISceneSession Lifecycle
