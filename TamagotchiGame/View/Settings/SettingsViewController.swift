@@ -63,7 +63,6 @@ class SettingsViewController: BaseViewController {
     
     override func setupUI() {
         navigationItem.title = "설정"
-        navigationController?.navigationBar.topItem?.title = ""
         
         view.backgroundColor = .base
         view.addSubview(tableView)

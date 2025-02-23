@@ -39,11 +39,20 @@ final class SettingsViewModel: BaseViewModel {
         var detail: String {
             switch self {
             case .editName:
-                return UserDataManager.captainName
+                return UserDataManager.captainNameRelay.value
             default:
                 return ""
             }
         }
+    }
+    
+    override init() {
+        super.init()
+        UserDataManager.captainNameRelay
+            .subscribe(with: self, onNext: { owner, value in
+                owner.settingsOptions.accept(SettingOption.allCases)
+            })
+            .disposed(by: disposeBag)
     }
     
     struct Input {

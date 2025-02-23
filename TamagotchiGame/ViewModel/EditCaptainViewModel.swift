@@ -21,7 +21,7 @@ final class EditCaptainViewModel: BaseViewModel {
         let guideMessage: Driver<String>
     }
     
-    private let savedCaptainName = BehaviorRelay<String>(value: UserDataManager.captainName)
+    private let savedCaptainName = BehaviorRelay<String>(value: UserDataManager.captainNameRelay.value)
     private let isSaveButtonEnabled = BehaviorRelay<Bool>(value: false)
     private let guideMessage = BehaviorRelay<String>(value: "이름은 2자 이상 6자 이하로 입력해주세요.")
     
@@ -38,6 +38,12 @@ final class EditCaptainViewModel: BaseViewModel {
                 return name
             }
             .bind(to: savedCaptainName)
+            .disposed(by: disposeBag)
+        
+        savedCaptainName
+            .subscribe(onNext: { newName in
+                UserDataManager.captainName = newName
+            })
             .disposed(by: disposeBag)
         
         return Output(

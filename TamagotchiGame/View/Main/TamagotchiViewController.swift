@@ -69,12 +69,19 @@ final class TamagotchiViewController: BaseViewController {
     }
     
     override func setupUI() {
-        navigationItem.title = "\(UserDataManager.captainName)님의 다마고치"
+        UserDataManager.captainNameRelay
+            .subscribe(onNext: { [weak self] newCaptainName in
+                self?.navigationItem.title = "\(newCaptainName)님의 다마고치"
+            })
+            .disposed(by: disposeBag)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "person.circle")?.withTintColor(.point).withRenderingMode(.alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(searchButtonTapped)
         )
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
     }
 }

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 struct UserDataManager {
     @UserDefault("selectedTamagotchi", defaultValue: 0)
@@ -18,5 +20,13 @@ struct UserDataManager {
     static var waterCount: Int
 
     @UserDefault("captainName", defaultValue: "대장")
-    static var captainName: String
+    static var captainName: String {
+        didSet {
+            captainNameRelay.accept(captainName)
+        }
+    }
+    
+    static var captainNameRelay: BehaviorRelay<String> = {
+        return BehaviorRelay(value: UserDataManager.captainName)
+    }()
 }
