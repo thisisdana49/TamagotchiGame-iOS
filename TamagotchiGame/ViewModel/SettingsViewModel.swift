@@ -48,4 +48,10 @@ final class SettingsViewModel: BaseViewModel {
             selectedAction: selectedAction.asDriver(onErrorDriveWith: .empty())
         )
     }
+    
+    func resetData() {
+        UserDataManager.selectedTamagotchi = 0
+        UserDataManager.foodCount = 0
+        UserDataManager.waterCount = 0
+    }
 }

@@ -50,7 +50,14 @@ class SettingsViewController: BaseViewController {
             let vc = SelectionTypeViewController()
             navigationController?.pushViewController(vc, animated: true)
         case .resetData:
-            print("reset data tapped")
+            // TODO: Alert 필요
+            viewModel.resetData()
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }
+            let vc = SelectionTypeViewController()
+                    
+            let nav = UINavigationController(rootViewController: vc)
+            window.rootViewController = nav
+            window.makeKeyAndVisible()
         }
     }
     
