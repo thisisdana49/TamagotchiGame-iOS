@@ -27,6 +27,7 @@ final class TamagotchiViewModel: BaseViewModel {
     
     private let tamagotchi: BehaviorRelay<Tamagotchi>
     private let captain: BehaviorRelay<Captain>
+    private let dialogueSubject = BehaviorRelay<String>(value: "반갑구만 반가워요~!")
     
     init(tamagotchi: Tamagotchi) {
         // TODO: UserDefaults에서 저장된 정보를 가져올 수 있도록 하기!!
@@ -37,16 +38,29 @@ final class TamagotchiViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
+        let tamagotchiImage = tamagotchi.map { value in
+            // TODO: 멋이 없어서 리팩토링 때에 수정 필요
+            let level = value.level == 0 ? 1 : (value.level == 10 ? 9 : value.level)
+            return "\(value.id)-\(level)"
+        }
+        
+        var tamagotchiStatus = tamagotchi.map { $0.status }
+        let dialogue = dialogueSubject.asObservable()
+        
         // TODO: 두 로직을 합칠 수 있을 것 같음
         input.foodButtonTap
             .withLatestFrom(input.giveFood)
             .map { Int($0) ?? 1 }
             .bind(with: self) { owner, value in
-//                print("given food: ", value)
+                if value > 99 {
+                    owner.dialogueSubject.accept("밥알은 한 번에 99개까지 먹을 수 있어요! 🍚")
+                    return
+                }
+                
                 var newTamagotchi = owner.tamagotchi.value
                 newTamagotchi.foodCount += value
                 owner.tamagotchi.accept(newTamagotchi)
-//                print("total food: ", newTamagotchi.foodCount)
+                owner.dialogueSubject.accept("냠냠~ JMT네요~ 😋")
             }
             .disposed(by: disposeBag)
 
@@ -54,29 +68,26 @@ final class TamagotchiViewModel: BaseViewModel {
             .withLatestFrom(input.giveWater)
             .map { Int($0) ?? 1 }
             .bind(with: self) { owner, value in
+                if value > 99 {
+                    owner.dialogueSubject.accept("물방울은 한 번에 49개까지 먹을 수 있어요! 💦")
+                    return
+                }
+                
                 var newTamagotchi = owner.tamagotchi.value
                 newTamagotchi.waterCount += value
                 owner.tamagotchi.accept(newTamagotchi)
-//                print("total water: ", newTamagotchi.waterCount)
+                owner.dialogueSubject.accept("꿀꺽~ 수분 충전 완료!! 😚")
             }
             .disposed(by: disposeBag)
-        
-        let tamagotchiImage = tamagotchi.map { value in
-            // TODO: 멋이 없어서 리팩토링 때에 수정 필요
-            let level = value.level == 0 ? 1 : (value.level == 10 ? 9 : value.level)
-            return "\(value.id)-\(level)"
-        }
-        
-        var tamagotchiStatus: Observable<String> {
-            return tamagotchi.map { $0.status }
-        }
-        
-        // TODO: 상황에 따라 적절한 이야기를 설정하기
-        var dialogue: Observable<String> {
-            return tamagotchi.map { _ in
-                DialogueManager.getRandomDialogue(captainName: self.captain.value.name)
-            }
-        }
+        // TODO: 레벨이 변경 될 때 레벨 변경 문구를 띄우려면???
+//        tamagotchi
+//            .map { $0.level }
+//            .distinctUntilChanged()
+//            .bind(with: self) { owner, newLevel in
+//                if newLevel == 0 { return }
+//                owner.dialogueSubject.accept("레벨 \(newLevel)로 성장했어요! 🎉")
+//            }
+//            .disposed(by: disposeBag)
         
         return Output(tamagotchiImage: tamagotchiImage,
                       tamagotchiStatus: tamagotchiStatus,
