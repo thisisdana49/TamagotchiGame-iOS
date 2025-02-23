@@ -18,9 +18,9 @@ final class TamagotchiView: UIView {
     private let foodStackView = UIStackView()
     let foodTextField = CustomUnderLineTextField()
     private let waterStackView = UIStackView()
-    let foodButton = UIButton()
+    let foodButton = CustomButton(type: .food)
     let waterTextField = CustomUnderLineTextField()
-    let waterButton = UIButton()
+    let waterButton = CustomButton(type: .water)
     
     init(tamagotchi: Tamagotchi) {
         super.init(frame: .zero)
@@ -80,13 +80,13 @@ final class TamagotchiView: UIView {
         
         foodStackView.snp.makeConstraints{
             $0.top.equalTo(statusLabel.snp.bottom).offset(44)
-            $0.horizontalEdges.equalToSuperview().inset(100)
+            $0.horizontalEdges.equalToSuperview().inset(84)
             $0.height.equalTo(40)
         }
         
         waterStackView.snp.makeConstraints{
             $0.top.equalTo(foodStackView.snp.bottom).offset(12)
-            $0.horizontalEdges.equalToSuperview().inset(100)
+            $0.horizontalEdges.equalToSuperview().inset(84)
             $0.height.equalTo(40)
         }
         
@@ -116,7 +116,7 @@ final class TamagotchiView: UIView {
         statusLabel.textColor = .point
         statusLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         
-        foodStackView.distribution = .fillProportionally
+        foodStackView.distribution = .fill
         foodStackView.spacing = 8
         
         waterStackView.distribution = .fillProportionally
@@ -124,15 +124,9 @@ final class TamagotchiView: UIView {
         
         foodTextField.placeholder = "밥주세용"
         foodTextField.textAlignment = .center
-        
-        foodButton.setTitle("밥먹기", for: .normal)
-        foodButton.setTitleColor(.black, for: .normal)
-        
+
         waterTextField.placeholder = "물주세용"
         waterTextField.textAlignment = .center
-        
-        waterButton.setTitle("물먹기", for: .normal)
-        waterButton.setTitleColor(.black, for: .normal)
     }
     
     required init?(coder: NSCoder) {
