@@ -10,6 +10,7 @@ import SnapKit
 
 final class SelectionModalView: UIView {
     
+    // TODO: baseView 클릭 시 모달창 dismiss
     private let baseView = UIView()
     private let tamagotchiImageView = UIImageView()
     // TODO: Custom Label 분리

@@ -10,10 +10,10 @@ import RxCocoa
 import RxSwift
 
 final class SelectionTypeViewController: BaseViewController {
-
+    
     private let mainView = SelectionTypeView()
     private let viewModel = SelectionTypeViewModel()
-    
+    // init할 때 시작 or 변경 중 어떤 것인지 enum으로 받을 수 있도록 하기
     override func loadView() {
         view = mainView
     }

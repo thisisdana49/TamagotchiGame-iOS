@@ -46,4 +46,20 @@ final class TamagotchiViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
+    @objc
+    private func searchButtonTapped() {
+        let vc = SettingsViewController()
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    override func setupUI() {
+        navigationItem.title = "대장님의 다마고치"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "person.circle")?.withTintColor(.point).withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(searchButtonTapped)
+        )
+    }
 }
