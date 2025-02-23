@@ -11,8 +11,10 @@ final class SelectionModalViewController: BaseViewController {
 
     private let viewModel: SelectionModalViewModel
     private let mainView: SelectionModalView
+    private let isOnboarding: Bool
     
-    init(tamagotchi: Tamagotchi) {
+    init(tamagotchi: Tamagotchi, isOnboarding: Bool = false) {
+        self.isOnboarding = isOnboarding
         self.viewModel = SelectionModalViewModel(tamagotchi: tamagotchi)
         self.mainView = SelectionModalView(tamagotchi: tamagotchi)
         super.init(nibName: nil, bundle: nil)
@@ -20,6 +22,10 @@ final class SelectionModalViewController: BaseViewController {
     
     override func loadView() {
         view = mainView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     override func bindViewModel() {
@@ -48,8 +54,8 @@ final class SelectionModalViewController: BaseViewController {
         window.makeKeyAndVisible()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func setupUI() {
+        mainView.startButton.setTitle(isOnboarding ? "시작하기" : "변경하기", for: .normal)
     }
     
     required init?(coder: NSCoder) {

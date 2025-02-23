@@ -53,7 +53,7 @@ class SettingsViewController: BaseViewController {
             // TODO: Alert 필요
             viewModel.resetData()
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }
-            let vc = SelectionTypeViewController()
+            let vc = SelectionTypeViewController(isOnboarding: true)
                     
             let nav = UINavigationController(rootViewController: vc)
             window.rootViewController = nav

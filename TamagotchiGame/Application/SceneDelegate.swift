@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
 
         let rootViewController: UIViewController
-        if UserDataManager.selectedTamagotchi == 0 {
-            rootViewController = SelectionTypeViewController()
+        if UserDataManager.selectedTamagotchi == -1 {
+            rootViewController = SelectionTypeViewController(isOnboarding: true)
         } else {
             let selectedTamagotchi = Tamagotchi(id: UserDataManager.selectedTamagotchi,
                                                 foodCount: UserDataManager.foodCount,

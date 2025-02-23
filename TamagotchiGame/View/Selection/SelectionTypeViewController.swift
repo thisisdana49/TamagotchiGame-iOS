@@ -13,7 +13,13 @@ final class SelectionTypeViewController: BaseViewController {
     
     private let mainView = SelectionTypeView()
     private let viewModel = SelectionTypeViewModel()
-    // init할 때 시작 or 변경 중 어떤 것인지 enum으로 받을 수 있도록 하기
+    private let isOnboarding: Bool
+    
+    init(isOnboarding: Bool = false) {
+        self.isOnboarding = isOnboarding
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     override func loadView() {
         view = mainView
     }
@@ -43,7 +49,7 @@ final class SelectionTypeViewController: BaseViewController {
         
         output.selectedTamagotchi
             .drive(with: self) { owner, value in
-                let vc = SelectionModalViewController(tamagotchi: value)
+                let vc = SelectionModalViewController(tamagotchi: value, isOnboarding: owner.isOnboarding)
                 vc.modalPresentationStyle = .overCurrentContext
                 vc.modalTransitionStyle = .crossDissolve
                 owner.present(vc, animated: true)
@@ -52,7 +58,12 @@ final class SelectionTypeViewController: BaseViewController {
     }
 
     override func setupUI() {
+        navigationItem.title = isOnboarding ? "다마고치 선택하기": "다마고치 변경하기"
         mainView.collectionView.register(SelectionTypeCollectionViewCell.self, forCellWithReuseIdentifier: SelectionTypeCollectionViewCell.id)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

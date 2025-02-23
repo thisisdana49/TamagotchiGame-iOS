@@ -80,7 +80,7 @@ final class SettingsViewModel: BaseViewModel {
     
     func resetData() {
         UserDataManager.captainName = "대장"
-        UserDataManager.selectedTamagotchi = 0
+        UserDataManager.selectedTamagotchi = -1
         UserDataManager.foodCount = 0
         UserDataManager.waterCount = 0
     }
