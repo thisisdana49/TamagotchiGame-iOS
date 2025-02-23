@@ -13,7 +13,7 @@ final class TamagotchiView: UIView {
     private let dialogueImageView = UIImageView()
     let dialogueLabel = UILabel()
     let tamagotchiImageView = UIImageView()
-    private let badgeLabel = UILabel()
+    private let badgeLabel = CustomBadgeLabel()
     let statusLabel = UILabel()
     private let foodStackView = UIStackView()
     let foodTextField = UITextField()
@@ -106,13 +106,10 @@ final class TamagotchiView: UIView {
         
         dialogueImageView.image = .bubble
         
-        dialogueLabel.text = "안녕하세요, 대장님!"
         dialogueLabel.textAlignment = .center
         dialogueLabel.numberOfLines = 0
         
-        badgeLabel.text = "방실방실 다마고치"
-        
-        statusLabel.text = "LV1 · 밥알 0개 · 물방울 0개"
+        badgeLabel.font = .systemFont(ofSize: 15, weight: .bold)
         
         foodStackView.distribution = .fillProportionally
         foodStackView.spacing = 8

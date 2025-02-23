@@ -49,10 +49,12 @@ final class SelectionTypeViewController: BaseViewController {
         
         output.selectedTamagotchi
             .drive(with: self) { owner, value in
-                let vc = SelectionModalViewController(tamagotchi: value, isOnboarding: owner.isOnboarding)
-                vc.modalPresentationStyle = .overCurrentContext
-                vc.modalTransitionStyle = .crossDissolve
-                owner.present(vc, animated: true)
+                if !value.isReady {
+                    let vc = SelectionModalViewController(tamagotchi: value, isOnboarding: owner.isOnboarding)
+                    vc.modalPresentationStyle = .overCurrentContext
+                    vc.modalTransitionStyle = .crossDissolve
+                    owner.present(vc, animated: true)
+                }
             }
             .disposed(by: disposeBag)
     }

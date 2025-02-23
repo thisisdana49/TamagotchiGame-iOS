@@ -13,7 +13,7 @@ class SelectionTypeCollectionViewCell: UICollectionViewCell {
     static let id = "SelectionTypeCollectionViewCell"
     
     let tamagotchiImageView = UIImageView()
-    let badgeLabel = UILabel()
+    let badgeLabel = CustomBadgeLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,7 +46,7 @@ class SelectionTypeCollectionViewCell: UICollectionViewCell {
         }
         
         badgeLabel.snp.makeConstraints{
-            $0.top.equalTo(tamagotchiImageView.snp.bottom)
+            $0.top.equalTo(tamagotchiImageView.snp.bottom).offset(8)
             $0.horizontalEdges.equalToSuperview()
         }
     }
@@ -54,7 +54,7 @@ class SelectionTypeCollectionViewCell: UICollectionViewCell {
     private func configureView() {
         tamagotchiImageView.image = ._1_1
         
-        badgeLabel.text = "방실방실 다마고치"
+        badgeLabel.font = .systemFont(ofSize: 13, weight: .semibold)
     }
     
     required init?(coder: NSCoder) {
