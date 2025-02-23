@@ -16,10 +16,10 @@ final class TamagotchiView: UIView {
     private let badgeLabel = CustomBadgeLabel()
     let statusLabel = UILabel()
     private let foodStackView = UIStackView()
-    let foodTextField = UITextField()
+    let foodTextField = CustomUnderLineTextField()
     private let waterStackView = UIStackView()
     let foodButton = UIButton()
-    let waterTextField = UITextField()
+    let waterTextField = CustomUnderLineTextField()
     let waterButton = UIButton()
     
     init(tamagotchi: Tamagotchi) {
@@ -57,7 +57,7 @@ final class TamagotchiView: UIView {
         }
         
         dialogueImageView.snp.makeConstraints {
-            $0.bottom.equalTo(tamagotchiImageView.snp.top)
+            $0.bottom.equalTo(tamagotchiImageView.snp.top).offset(-8)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(240)
             $0.height.equalTo(150)
@@ -65,7 +65,7 @@ final class TamagotchiView: UIView {
         
         dialogueLabel.snp.makeConstraints{
             $0.center.equalTo(dialogueImageView)
-            $0.edges.equalTo(dialogueImageView)
+            $0.edges.equalTo(dialogueImageView).inset(16)
         }
         
         badgeLabel.snp.makeConstraints{
@@ -74,7 +74,7 @@ final class TamagotchiView: UIView {
         }
         
         statusLabel.snp.makeConstraints{
-            $0.top.equalTo(badgeLabel.snp.bottom)
+            $0.top.equalTo(badgeLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
         }
         
@@ -108,8 +108,13 @@ final class TamagotchiView: UIView {
         
         dialogueLabel.textAlignment = .center
         dialogueLabel.numberOfLines = 0
+        dialogueLabel.textColor = .point
+        dialogueLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         
         badgeLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        
+        statusLabel.textColor = .point
+        statusLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         
         foodStackView.distribution = .fillProportionally
         foodStackView.spacing = 8
@@ -117,12 +122,14 @@ final class TamagotchiView: UIView {
         waterStackView.distribution = .fillProportionally
         waterStackView.spacing = 8
         
-        foodTextField.borderStyle = .roundedRect
+        foodTextField.placeholder = "밥주세용"
+        foodTextField.textAlignment = .center
         
         foodButton.setTitle("밥먹기", for: .normal)
         foodButton.setTitleColor(.black, for: .normal)
         
-        waterTextField.borderStyle = .roundedRect
+        waterTextField.placeholder = "물주세용"
+        waterTextField.textAlignment = .center
         
         waterButton.setTitle("물먹기", for: .normal)
         waterButton.setTitleColor(.black, for: .normal)

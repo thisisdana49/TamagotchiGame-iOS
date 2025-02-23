@@ -13,7 +13,7 @@ import SnapKit
 final class EditCaptainViewController: BaseViewController {
     
     private let viewModel = EditCaptainViewModel()
-    private let textField = UITextField()
+    private let textField = CustomUnderLineTextField()
     private let guideLabel = UILabel()
     private let saveButton = UIBarButtonItem()
     
