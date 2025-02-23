@@ -16,11 +16,13 @@ final class SelectionTypeViewModel: BaseViewModel {
     }
     
     struct Output {
-        let tamagotchiType: PublishRelay<Int>
+        let tamagotchiType: Driver<Int>
+        let selectedTamagotchi: Driver<Tamagotchi>
         let tamagotchiList: Driver<[Tamagotchi]>
     }
     
-    private let tamagotchiType = PublishRelay<Int>()
+    private let tamagotchiType = BehaviorRelay<Int>(value: 0)
+    private let selectedTamagotchi = PublishRelay<Tamagotchi>()
     private let tamagotchiList = BehaviorRelay<[Tamagotchi]>(value: [
         Tamagotchi(id: 1, foodCount: 0, waterCount: 0),
         Tamagotchi(id: 2, foodCount: 0, waterCount: 0),
@@ -29,10 +31,14 @@ final class SelectionTypeViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         input.selectType
-            .bind(to: tamagotchiType)
+            .map { index in
+                return self.tamagotchiList.value[index]
+            }
+            .bind(to: selectedTamagotchi)
             .disposed(by: disposeBag)
         
-        return Output(tamagotchiType: tamagotchiType,
+        return Output(tamagotchiType: tamagotchiType.asDriver(),
+                      selectedTamagotchi: selectedTamagotchi.asDriver(onErrorDriveWith: .empty()),
                       tamagotchiList: tamagotchiList.asDriver())
         // MARK: error 처리가 필요할까? error가 발생하는 가능성이 0.1이라도 있나?
     }

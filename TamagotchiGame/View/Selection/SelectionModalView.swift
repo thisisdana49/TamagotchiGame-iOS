@@ -17,8 +17,8 @@ final class SelectionModalView: UIView {
     private let separatorView = UIView()
     private let descLabel = UILabel()
     private let buttonStackView = UIStackView()
-    private let cancelButton = UIButton()
-    private let startButton = UIButton()
+    let cancelButton = UIButton()
+    let startButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

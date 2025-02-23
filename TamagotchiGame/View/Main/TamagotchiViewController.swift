@@ -14,6 +14,15 @@ final class TamagotchiViewController: BaseViewController {
     let viewModel = TamagotchiViewModel()
     private let mainView = TamagotchiView()
     
+    init(tamagotchi: Tamagotchi) {
+//        self.viewModel = TamagotchiViewModel(tamagotchi: tamagotchi)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = mainView
     }

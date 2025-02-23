@@ -41,9 +41,9 @@ final class SelectionTypeViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        output.tamagotchiType
-            .bind(with: self) { owner, value in
-                let vc = SelectionModalViewController()
+        output.selectedTamagotchi
+            .drive(with: self) { owner, value in
+                let vc = SelectionModalViewController(tamagotchi: value)
                 vc.modalPresentationStyle = .overCurrentContext
                 vc.modalTransitionStyle = .crossDissolve
                 owner.present(vc, animated: true)
