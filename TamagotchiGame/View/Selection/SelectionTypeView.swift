@@ -26,7 +26,7 @@ final class SelectionTypeView: UIView {
         collectionView.snp.makeConstraints{
             $0.top.equalTo(safeAreaLayoutGuide).offset(20)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
         
         collectionView.backgroundColor = .base

@@ -64,8 +64,9 @@ final class TamagotchiView: UIView {
         }
         
         dialogueLabel.snp.makeConstraints{
-            $0.center.equalTo(dialogueImageView)
-            $0.edges.equalTo(dialogueImageView).inset(16)
+            $0.centerY.equalTo(dialogueImageView).offset(-4)
+            $0.centerX.equalTo(dialogueImageView)
+            $0.horizontalEdges.equalTo(dialogueImageView).inset(16)
         }
         
         badgeLabel.snp.makeConstraints{
@@ -132,10 +133,15 @@ final class TamagotchiView: UIView {
         waterStackView.distribution = .fillProportionally
         waterStackView.spacing = 8
         
-        foodTextField.placeholder = "밥주세용"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.systemGray3,
+            .font: UIFont.systemFont(ofSize: 14, weight: .medium)
+        ]
+        
+        foodTextField.attributedPlaceholder = NSAttributedString(string: "밥주세용", attributes: attributes)
         foodTextField.textAlignment = .center
 
-        waterTextField.placeholder = "물주세용"
+        waterTextField.attributedPlaceholder = NSAttributedString(string: "물주세용", attributes: attributes)
         waterTextField.textAlignment = .center
     }
     
