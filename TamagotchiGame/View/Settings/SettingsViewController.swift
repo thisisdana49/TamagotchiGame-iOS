@@ -26,7 +26,7 @@ class SettingsViewController: BaseViewController {
         
         output.settingsOptions
             .drive(tableView.rx.items(cellIdentifier: SettingsTableViewCell.identifier, cellType: SettingsTableViewCell.self)) { (row, element, cell) in
-                cell.textLabel?.text = element.title
+                cell.configureData(with: element)
             }
             .disposed(by: disposeBag)
         
@@ -62,11 +62,16 @@ class SettingsViewController: BaseViewController {
     }
     
     override func setupUI() {
+        navigationItem.title = "설정"
+        navigationController?.navigationBar.topItem?.title = ""
+        
         view.backgroundColor = .base
         view.addSubview(tableView)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
         tableView.backgroundColor = .base
-        tableView.rowHeight = 100
+        tableView.rowHeight = 56
+        tableView.separatorColor = .point
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview()

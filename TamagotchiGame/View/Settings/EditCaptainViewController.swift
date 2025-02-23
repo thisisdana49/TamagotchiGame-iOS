@@ -73,6 +73,7 @@ final class EditCaptainViewController: BaseViewController {
         navigationItem.rightBarButtonItem = saveButton
         saveButton.target = self
         saveButton.action = #selector(saveButtonTapped)
+        textField.text = UserDataManager.captainName
     }
     
 }

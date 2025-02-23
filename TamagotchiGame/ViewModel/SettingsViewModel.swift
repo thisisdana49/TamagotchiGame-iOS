@@ -24,6 +24,26 @@ final class SettingsViewModel: BaseViewModel {
             case .resetData: return "데이터 초기화하기"
             }
         }
+        
+        var icon: String {
+            switch self {
+            case .editName:
+                return "pencil"
+            case .changeTamagotchi:
+                return "moon.fill"
+            case .resetData:
+                return "arrow.clockwise"
+            }
+        }
+        
+        var detail: String {
+            switch self {
+            case .editName:
+                return UserDataManager.captainName
+            default:
+                return ""
+            }
+        }
     }
     
     struct Input {
@@ -50,6 +70,7 @@ final class SettingsViewModel: BaseViewModel {
     }
     
     func resetData() {
+        UserDataManager.captainName = "대장"
         UserDataManager.selectedTamagotchi = 0
         UserDataManager.foodCount = 0
         UserDataManager.waterCount = 0
