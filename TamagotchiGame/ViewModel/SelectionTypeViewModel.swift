@@ -24,10 +24,12 @@ final class SelectionTypeViewModel: BaseViewModel {
     private let tamagotchiType = BehaviorRelay<Int>(value: 0)
     private let selectedTamagotchi = PublishRelay<Tamagotchi>()
     private let tamagotchiList = BehaviorRelay<[Tamagotchi]>(value: [
-        Tamagotchi(id: 1, foodCount: 0, waterCount: 0),
-        Tamagotchi(id: 2, foodCount: 0, waterCount: 0),
-        Tamagotchi(id: 3, foodCount: 0, waterCount: 0)
-    ])
+        Tamagotchi(id: 1, isReady: false, foodCount: 0, waterCount: 0),
+        Tamagotchi(id: 2, isReady: false, foodCount: 0, waterCount: 0),
+        Tamagotchi(id: 3, isReady: false, foodCount: 0, waterCount: 0)
+    ] + (4...20).map { index in
+        Tamagotchi(id: index, isReady: true, foodCount: 0, waterCount: 0)
+    })
     
     func transform(input: Input) -> Output {
         input.selectType

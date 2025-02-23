@@ -24,8 +24,13 @@ class SelectionTypeCollectionViewCell: UICollectionViewCell {
     }
     
     func configureData(with element: Tamagotchi) {
-        tamagotchiImageView.image = UIImage(named: "\(element.id)-6")
-        badgeLabel.text = element.badge
+        if !element.isReady {
+            tamagotchiImageView.image = UIImage(named: "\(element.id)-6")
+            badgeLabel.text = element.badge
+        } else {
+            tamagotchiImageView.image = .no
+            badgeLabel.text = "준비중이에요"
+        }
     }
     
     private func configureHierarchy() {

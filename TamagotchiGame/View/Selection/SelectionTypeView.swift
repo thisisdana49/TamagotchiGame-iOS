@@ -44,7 +44,7 @@ final class SelectionTypeView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: itemSize / 3, height: itemSize / 2)
         layout.minimumInteritemSpacing = spacing
-        layout.minimumLineSpacing = spacing
+        layout.minimumLineSpacing = 0
         layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         layout.scrollDirection = .vertical
         

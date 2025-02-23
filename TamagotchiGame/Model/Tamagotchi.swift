@@ -8,7 +8,8 @@
 import Foundation
 
 struct Tamagotchi {
-    var id: Int
+    let id: Int
+    let isReady: Bool
     var foodCount: Int
     var waterCount: Int
     

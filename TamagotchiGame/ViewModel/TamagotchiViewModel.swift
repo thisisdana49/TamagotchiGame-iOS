@@ -47,7 +47,7 @@ final class TamagotchiViewModel: BaseViewModel {
             return "\(value.id)-\(level)"
         }
         
-        var tamagotchiStatus = tamagotchi.map { $0.status }
+        let tamagotchiStatus = tamagotchi.map { $0.status }
         let dialogue = dialogueSubject.asObservable()
         
         // TODO: 두 로직을 합칠 수 있을 것 같음
