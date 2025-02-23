@@ -69,7 +69,7 @@ final class TamagotchiViewController: BaseViewController {
     }
     
     override func setupUI() {
-        navigationItem.title = "대장님의 다마고치"
+        navigationItem.title = "\(UserDataManager.captainName)님의 다마고치"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "person.circle")?.withTintColor(.point).withRenderingMode(.alwaysOriginal),
             style: .plain,
