@@ -36,6 +36,6 @@ final class CustomUnderLineTextField: UITextField {
     private func updateUnderline() {
         let underlineHeight: CGFloat = 1
         let yPosition = bounds.height - underlineHeight
-        underlineLayer.frame = CGRect(x: 0, y: yPosition, width: bounds.width, height: underlineHeight)
+        underlineLayer.frame = CGRect(x: 0, y: yPosition + 8, width: bounds.width, height: underlineHeight)
     }
 }

@@ -94,8 +94,16 @@ final class TamagotchiView: UIView {
             $0.width.equalTo(140)
         }
         
+        foodButton.snp.makeConstraints{
+            $0.height.equalTo(40)
+        }
+        
         waterTextField.snp.makeConstraints{
             $0.width.equalTo(140)
+        }
+        
+        waterButton.snp.makeConstraints{
+            $0.height.equalTo(40)
         }
     }
     
@@ -116,9 +124,11 @@ final class TamagotchiView: UIView {
         statusLabel.textColor = .point
         statusLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         
+        foodStackView.alignment = .center
         foodStackView.distribution = .fill
         foodStackView.spacing = 8
         
+        waterStackView.alignment = .center
         waterStackView.distribution = .fillProportionally
         waterStackView.spacing = 8
         

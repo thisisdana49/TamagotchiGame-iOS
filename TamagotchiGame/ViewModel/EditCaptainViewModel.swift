@@ -42,7 +42,9 @@ final class EditCaptainViewModel: BaseViewModel {
         
         savedCaptainName
             .subscribe(onNext: { newName in
-                UserDataManager.captainName = newName
+                if newName.count >= 2 && newName.count <= 6 {
+                    UserDataManager.captainName = newName
+                }
             })
             .disposed(by: disposeBag)
         

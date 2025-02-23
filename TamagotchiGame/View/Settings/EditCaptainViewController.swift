@@ -57,15 +57,22 @@ final class EditCaptainViewController: BaseViewController {
         view.addSubview(textField)
         view.addSubview(guideLabel)
         
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(16)
+        textField.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(32)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(32)
         }
         
-        guideLabel.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(8)
-            make.leading.equalToSuperview().inset(16)
+        guideLabel.snp.makeConstraints {
+            $0.top.equalTo(textField.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().inset(28)
         }
+        
+        textField.textColor = .point
+        guideLabel.textColor = .point
+        
+        textField.font = .systemFont(ofSize: 15, weight: .semibold)
+        guideLabel.font = .systemFont(ofSize: 14, weight: .medium)
         
         navigationItem.title = "대장님 이름 정하기"
         saveButton.title = "저장"
