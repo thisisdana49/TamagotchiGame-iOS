@@ -22,12 +22,18 @@ final class TamagotchiView: UIView {
     let waterTextField = UITextField()
     let waterButton = UIButton()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(tamagotchi: Tamagotchi) {
+        super.init(frame: .zero)
         
         configureHierarchy()
         configureLayout()
         configureView()
+        configure(with: tamagotchi)
+    }
+    
+    private func configure(with tamagotchi: Tamagotchi) {
+        tamagotchiImageView.image = UIImage(named: "\(tamagotchi.id)-1")
+        badgeLabel.text = tamagotchi.type
     }
     
     private func configureHierarchy() {
